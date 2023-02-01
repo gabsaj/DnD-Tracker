@@ -15,14 +15,27 @@ import { toast } from "react-toastify";
 import HitpointsTracker from "./features/components/HitpointsTracker";
 import { Level1Spells } from "./features/db/Level1Spells";
 import { Level2Spells } from "./features/db/Level2Spells";
+import Pagination from "./features/components/Pagination";
 
 const App = () => {
   const [isNewRound, setIsNewRound] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>("");
+  const [slicing, setSlicing] = useState([0, 2]);
+  const [params, setParams] = useState({ page: 1, spp: 10 });
+  const allSpells: SpellType[] = [
+    ...Level1Spells,
+    ...Level2Spells,
+    ...Level8Spells,
+    ...Level9Spells,
+  ];
 
   setTimeout(() => {
     setIsNewRound(false);
   }, 0.1);
+
+  const handlePaginate = (pageNumber: number) => {
+    setParams({ page: pageNumber, spp: params.spp });
+  };
 
   const handleFilter = (value: SpellType) => {
     if (
@@ -93,7 +106,7 @@ const App = () => {
 
           <div id="spells">Spells</div>
           <div className="wrapper--inner">
-            {Level1Spells.filter(handleFilter).map((item) => (
+            {allSpells.filter(handleFilter).map((item) => (
               <SingleSpell
                 name={item.name}
                 duration={item.duration}
@@ -102,15 +115,12 @@ const App = () => {
                 roundTrigger={isNewRound}
               />
             ))}
-            {Level2Spells.filter(handleFilter).map((item) => (
-              <SingleSpell
-                name={item.name}
-                duration={item.duration}
-                level={item.level}
-                description={item.description}
-                roundTrigger={isNewRound}
-              />
-            ))}
+            <Pagination
+              spellsCount={allSpells.length}
+              currentPage={params.page}
+              spp={params.spp}
+              handlePaginate={handlePaginate}
+            />
           </div>
 
           <div id="summons">Summons</div>
