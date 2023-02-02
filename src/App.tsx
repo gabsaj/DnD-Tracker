@@ -106,15 +106,18 @@ const App = () => {
 
           <div id="spells">Spells</div>
           <div className="wrapper--inner">
-            {allSpells.filter(handleFilter).map((item) => (
-              <SingleSpell
-                name={item.name}
-                duration={item.duration}
-                level={item.level}
-                description={item.description}
-                roundTrigger={isNewRound}
-              />
-            ))}
+            {allSpells
+              .filter(handleFilter)
+              .slice(params.page, params.spp + params.page)
+              .map((item) => (
+                <SingleSpell
+                  name={item.name}
+                  duration={item.duration}
+                  level={item.level}
+                  description={item.description}
+                  roundTrigger={isNewRound}
+                />
+              ))}
             <Pagination
               spellsCount={allSpells.length}
               currentPage={params.page}

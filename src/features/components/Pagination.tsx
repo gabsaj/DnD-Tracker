@@ -24,13 +24,19 @@ const Pagination: React.FC<PaginationProps> = (props) => {
         &#10094;
       </button>
       {pageNumbers.map((n, idx) => (
-        <button key={idx} onClick={() => handlePaginate(n)}>
+        <button
+          className={n === currentPage ? "active" : ""}
+          key={idx}
+          onClick={() => handlePaginate(n)}
+        >
           {n}
         </button>
       ))}
       <button
         onClick={() =>
-          currentPage === 2 ? undefined : handlePaginate(currentPage + 1)
+          currentPage === pageNumbers.length
+            ? undefined
+            : handlePaginate(currentPage + 1)
         }
       >
         &#10095;
