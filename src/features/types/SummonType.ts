@@ -1,4 +1,5 @@
 export interface SummonType {
+  handleSummon: () => void;
   duration: number;
   roundTrigger: boolean;
   name: string;

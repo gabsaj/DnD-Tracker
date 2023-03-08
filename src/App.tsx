@@ -16,12 +16,14 @@ import HitpointsTracker from "./features/components/HitpointsTracker";
 import { Level1Spells } from "./features/db/Level1Spells";
 import { Level2Spells } from "./features/db/Level2Spells";
 import Pagination from "./features/components/Pagination";
+import { ElementalType } from "./features/types/ElementalType";
 
 const App = () => {
   const [isNewRound, setIsNewRound] = useState<boolean>(false);
   const [searchValue, setSearchValue] = useState<any>("");
   const [slicing, setSlicing] = useState([0, 2]);
-  const [params, setParams] = useState({ page: 1, spp: 10 });
+  const [params, setParams] = useState({ page: 1, spp: 5 });
+  const [summoned, setSummoned] = useState<ElementalType[]>([]);
   const allSpells: SpellType[] = [
     ...Level1Spells,
     ...Level2Spells,
@@ -59,6 +61,21 @@ const App = () => {
     toast.warn("Feed Ash");
     toast.warn("Eat");
     toast.warn("Cast Enhance Wild shape");
+  };
+  const handleSummon = (i: ElementalType) => {
+    setSummoned([
+      ...summoned,
+      {
+        handleSummon: i.handleSummon,
+        duration: i.duration,
+        roundTrigger: i.roundTrigger,
+        name: i.name,
+        img: i.img,
+        greater: i.greater,
+        huge: i.huge,
+        large: i.large,
+      },
+    ]);
   };
 
   return (
@@ -130,6 +147,23 @@ const App = () => {
           <div className="wrapper--inner">
             {Elementals.map((item) => (
               <SingleElemental
+                handleSummon={handleSummon}
+                name={item.name}
+                roundTrigger={isNewRound}
+                duration={46}
+                img={item.img}
+                greater={item.greater}
+                huge={item.huge}
+                large={item.large}
+              />
+            ))}
+            <div></div>
+          </div>
+          <div id="summons">Summoned</div>
+          <div className="wrapper--inner">
+            {summoned.map((item) => (
+              <SingleElemental
+                handleSummon={handleSummon}
                 name={item.name}
                 roundTrigger={isNewRound}
                 duration={46}

@@ -2,7 +2,16 @@ import { useEffect, useState } from "react";
 import { ElementalType } from "../types/ElementalType";
 
 const SingleElemental: React.FC<ElementalType> = (props) => {
-  const { name, duration, img, roundTrigger, greater, large, huge } = props;
+  const {
+    name,
+    duration,
+    img,
+    roundTrigger,
+    greater,
+    large,
+    huge,
+    handleSummon,
+  } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const [roundsTotal, setRoundsTotal] = useState<number>(duration);
 
@@ -23,6 +32,7 @@ const SingleElemental: React.FC<ElementalType> = (props) => {
       <div className="spell__top">
         <div>
           <p>{name}</p>
+          <button onClick={handleSummon}>Summon</button>
           {!isActive && (
             <button onClick={() => setIsActive(true)}>Activate</button>
           )}

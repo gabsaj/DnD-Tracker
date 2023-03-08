@@ -1,4 +1,5 @@
 export interface ElementalType {
+  handleSummon: () => void;
   duration: number;
   roundTrigger: boolean;
   name: string;
