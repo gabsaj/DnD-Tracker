@@ -10,6 +10,12 @@ interface ManualSpell {
 const ManualSingleSpell: React.FC<ManualSpell> = (props) => {
   const { name, duration, level, isWildshape } = props;
 
+  const handleRounds = () => {
+    if (roundsTotal > 0) {
+      setRoundsTotal(roundsTotal - 1);
+    }
+  };
+
   const [isActive, setIsActive] = useState<boolean>(false);
   const [roundsTotal, setRoundsTotal] = useState<number>(duration);
   return (
@@ -33,11 +39,7 @@ const ManualSingleSpell: React.FC<ManualSpell> = (props) => {
               )}
             </>
           )}
-          {isWildshape && (
-            <button onClick={() => setRoundsTotal(roundsTotal - 1)}>
-              Spend
-            </button>
-          )}
+          {isWildshape && <button onClick={handleRounds}>Spend</button>}
         </div>
 
         <div>

@@ -14,7 +14,7 @@ const SingleSpell: React.FC<SpellType> = (props) => {
   };
 
   const handleRounds = () => {
-    if (roundTrigger) {
+    if (roundTrigger && roundsTotal >= 0) {
       setRoundsTotal(roundsTotal - 1);
     }
   };

@@ -62,11 +62,11 @@ const App = () => {
     toast.warn("Eat");
     toast.warn("Cast Enhance Wild shape");
   };
-  const handleSummon = (i: ElementalType) => {
+  const handleAddObject = (i: ElementalType) => {
     setSummoned([
       ...summoned,
       {
-        handleSummon: i.handleSummon,
+        handleAddObject: i.handleAddObject,
         duration: i.duration,
         roundTrigger: i.roundTrigger,
         name: i.name,
@@ -74,6 +74,7 @@ const App = () => {
         greater: i.greater,
         huge: i.huge,
         large: i.large,
+        isSummoned: i.isSummoned,
       },
     ]);
   };
@@ -147,7 +148,7 @@ const App = () => {
           <div className="wrapper--inner">
             {Elementals.map((item) => (
               <SingleElemental
-                handleSummon={handleSummon}
+                handleAddObject={handleAddObject}
                 name={item.name}
                 roundTrigger={isNewRound}
                 duration={46}
@@ -155,6 +156,7 @@ const App = () => {
                 greater={item.greater}
                 huge={item.huge}
                 large={item.large}
+                isSummoned={false}
               />
             ))}
             <div></div>
@@ -163,7 +165,7 @@ const App = () => {
           <div className="wrapper--inner">
             {summoned.map((item) => (
               <SingleElemental
-                handleSummon={handleSummon}
+                handleAddObject={handleAddObject}
                 name={item.name}
                 roundTrigger={isNewRound}
                 duration={46}
@@ -171,6 +173,7 @@ const App = () => {
                 greater={item.greater}
                 huge={item.huge}
                 large={item.large}
+                isSummoned={true}
               />
             ))}
             <div></div>

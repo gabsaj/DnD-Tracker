@@ -12,11 +12,11 @@ const Sidebar = () => {
           <a onClick={() => setActive(false)} href="#spells">
             Spells
           </a>
-          <a onClick={() => setActive(false)} href="#summons">
-            Summons
-          </a>
           <a onClick={() => setActive(false)} href="#hp">
             HP Tracker
+          </a>
+          <a onClick={() => setActive(false)} href="#summons">
+            Summons
           </a>
         </div>
       )}

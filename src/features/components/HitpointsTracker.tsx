@@ -18,7 +18,7 @@ const HitpointsTracker = () => {
   };
 
   return (
-    <div className="spell__container">
+    <div id="hp" className="spell__container">
       <div className="spell__top">
         <input onChange={(e) => setHpName(e.target.value)} placeholder="Name" />
         <input

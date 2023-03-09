@@ -10,10 +10,12 @@ const SingleElemental: React.FC<ElementalType> = (props) => {
     greater,
     large,
     huge,
-    handleSummon,
+    isSummoned,
+    handleAddObject,
   } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const [roundsTotal, setRoundsTotal] = useState<number>(duration);
+  const [style, setStyle] = useState<string>("");
 
   const handleRounds = () => {
     if (roundTrigger) {
@@ -22,39 +24,59 @@ const SingleElemental: React.FC<ElementalType> = (props) => {
   };
 
   useEffect(() => {
-    if (isActive) {
+    if (isSummoned) {
       handleRounds();
     }
   }, [roundsTotal, roundTrigger]);
+  useEffect(() => {
+    if (roundsTotal <= 0) {
+      setStyle("none");
+    } else {
+      setStyle("");
+    }
+  }, [roundsTotal]);
 
   return (
-    <div className={` ${"spell__container"}${isActive ? " active" : ""} `}>
+    <div
+      style={{ display: style }}
+      className={` ${"spell__container"}${isSummoned ? " active" : ""} `}
+    >
       <div className="spell__top">
         <div>
           <p>{name}</p>
-          <button onClick={handleSummon}>Summon</button>
-          {!isActive && (
-            <button onClick={() => setIsActive(true)}>Activate</button>
-          )}
-          {isActive && (
+          {!isSummoned && (
             <button
-              onClick={() => setIsActive(!isActive)}
-              className="btn__reset"
+              onClick={() =>
+                handleAddObject({
+                  isSummoned,
+                  duration,
+                  roundTrigger,
+                  name,
+                  img,
+                  greater,
+                  huge,
+                  large,
+                  handleAddObject,
+                })
+              }
             >
-              Deactivate
+              Summon
             </button>
           )}
         </div>
-
-        <div>
-          <progress value={roundsTotal} max={duration}></progress>
-          {duration < 300 && (
-            <span>
-              {roundsTotal} / {duration}
-            </span>
-          )}
-        </div>
-        <img src={img} />
+        {isSummoned && (
+          <>
+            <div>
+              <progress value={roundsTotal} max={duration}></progress>
+              {duration < 300 && (
+                <span>
+                  {roundsTotal} / {duration}
+                </span>
+              )}
+            </div>
+            <img src={img} />
+          </>
+        )}
       </div>
       <details>
         <summary>Greater</summary>

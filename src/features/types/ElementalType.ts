@@ -1,7 +1,8 @@
 export interface ElementalType {
-  handleSummon: () => void;
+  handleAddObject: (i: ElementalType) => void;
   duration: number;
   roundTrigger: boolean;
+  isSummoned: boolean;
   name: string;
   img: string;
   greater: {
